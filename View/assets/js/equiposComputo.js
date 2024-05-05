@@ -1,7 +1,9 @@
 var id;
 
 function create (){
-let data = `txtAnydesk=${document.getElementById('txtAnydesk').value}`
+let data = `txtNombre=${document.getElementById('txtNombre').value}&txtAnydesk=${document.getElementById('txtAnydesk').value}
+&txtIp=${document.getElementById('txtIp').value}&txtResponsable=${document.getElementById('txtResponsable').value}
+&txtFechaMantenimiento=${document.getElementById('txtFechaMantenimiento').value}`
 
 console.log(data);
 const options = {
@@ -48,18 +50,17 @@ function read (){
         },
         dom: "Bfrtip",
 
-        //Personalizando los botones del dataTable
         buttons: [
             {
                 extend: "colvis",
-                text: '<i class="fa-solid fa-filter fa-fade"></i>',
+                text: '<i class="fa-solid fa-filter"></i>',
                 tittleAttr: "Filtrar",
                 className: "filtrar" ,
             }, 
 
             {
                 extend: "excel" ,
-                text: '<i class="fa-solid fa-file-excel fa-beat"></i>',
+                text: '<i class="fa-solid fa-file-excel"></i>',
                 tittleAttr: "Excel",
                 className: "excel" ,
                 exportOptions:{
@@ -69,7 +70,7 @@ function read (){
 
             {
                 extend: "print",
-                text: '<i class="fa-solid fa-print fa-beat"></i>',
+                text: '<i class="fa-solid fa-print"></i>',
                 tittleAttr: "Imprimir",
                 className: "imprimir" ,
                 exportOptions:{
@@ -80,7 +81,7 @@ function read (){
             
             {
                 extend: "copy",
-                text: '<i class="fa-solid fa-copy fa-beat"></i>',
+                text: '<i class="fa-solid fa-copy"></i>',
                 tittleAttr: "Copiar",
                 className: "copiar" ,
                 exportOptions:{
@@ -91,7 +92,7 @@ function read (){
         {
             download: "open",
             extend: "pdf",
-                text: '<i class="fa-solid fa-file-pdf fa-beat"></i>',
+                text: '<i class="fa-solid fa-file-pdf"></i>',
                 tittleAttr: "PDF",
                 className: "pdf" ,
                 exportOptions:{
@@ -161,10 +162,9 @@ function readDelete(id, anydesk){
         labelDelete.innerHTML = `Esta seguro de eliminar el equipo ${anydesk}  ?`;
     }
 
-    function abrirAnydesk(anydeskNumber) {
-        // Formar la URL de AnyDesk
-        var anydeskURL = "anydesk://" + anydeskNumber;
-    
-        // Intentar abrir AnyDesk
-        window.location.href = anydeskURL;
+    function abrirAnydesk(codigoAnydesk) {
+        var sesionAnydesk = "anydesk://" + codigoAnydesk;
+        window.location.href = sesionAnydesk;
     }
+
+    // "?password=" + encodeURIComponent(password);

@@ -10,6 +10,10 @@ Class EquipoComputo
 private $id;
 private $anydesk;
 private $conexion;
+private $nombre;
+private $ip;
+private $responsable;
+private $fechaMantenimiento;
 
 
 public function __construct()
@@ -20,8 +24,12 @@ $this->conexion = new \Conexion();
 
 public function create(){
 try {
-    $request = $this->conexion->getConPDO()->prepare("INSERT INTO equiposcomputo(anydesk) VALUES(?)");
-    $request->bindParam(1, $this->anydesk);
+    $request = $this->conexion->getConPDO()->prepare("INSERT INTO equiposcomputo(nombreEquipo, anydesk, ip, responsable, fechaMantenimiento) VALUES(?, ?, ?, ?, ?)");
+    $request->bindParam(1, $this->nombre);
+    $request->bindParam(2, $this->anydesk);
+    $request->bindParam(3, $this->ip);
+    $request->bindParam(4, $this->responsable);
+    $request->bindParam(5, $this->fechaMantenimiento);
     $request->execute();
     return "Equipo $this->anydesk creado";
 } catch (PDOException $e) {
@@ -101,6 +109,21 @@ public function setId($id): self
     return $this;
 }
 
+public function getNombre()
+{
+    return $this->nombre;
+}
+
+/**
+ * Set the value of nombreRol
+ */
+public function setNombre($nombre): self
+{
+    $this->nombre = $nombre;
+
+    return $this;
+}
+
 
 public function getAnydesk()
 {
@@ -116,6 +139,60 @@ public function setAnydesk($anydesk): self
 
     return $this;
 }
+
+
+public function getIp()
+{
+    return $this->ip;
+}
+
+/**
+ * Set the value of nombreRol
+ */
+public function setIp($ip): self
+{
+    $this->ip = $ip;
+
+    return $this;
+}
+
+
+
+
+
+public function getResponsable()
+{
+    return $this->responsable;
+}
+
+/**
+ * Set the value of nombreRol
+ */
+public function setResponsable($responsable): self
+{
+    $this->responsable = $responsable;
+
+    return $this;
+}
+
+
+
+public function getFechaMantenimiento()
+{
+    return $this->fechaMantenimiento;
+}
+
+/**
+ * Set the value of nombreRol
+ */
+public function setFechaMantenimiento($fechaMantenimiento): self
+{
+    $this->fechaMantenimiento = $fechaMantenimiento;
+
+    return $this;
+}
+
+
 
 }
 
