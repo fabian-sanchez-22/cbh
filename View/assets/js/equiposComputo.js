@@ -16,9 +16,11 @@ headers: {
     fetch("../Controller/equiposComputo.create.php", options)
     .then(response => response.json())
     .then((data) => {
+        read()
     })
-    read()
+    
     clear() 
+    
 }
 
 read()
@@ -34,13 +36,18 @@ function read (){
         data.forEach((element, index) => {
             table += `<tr>`
             table += `<th scope="row">${index + 1}</th>`;
+            table += `<td>${element.nombreEquipo}</td>`;
             table += `<td>${element.anydesk}</td>`;
+            table += `<td>${element.ip}</td>`;
+            table += `<td>${element.responsable}</td>`;
+            table += `<td>${element.fechaMantenimiento}</td>`;
             table += `<td>
                         <a onclick="readUpdate(${element.id})" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateModal" ><i class="fa-solid fa-square-pen"></i></a>
-                        <a onclick="readDelete(${element.id},'${element.anydesk}')" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></a>
-                        <a onclick="abrirAnydesk('${element.anydesk}')" class="btn btn-warning"><i class="fa-solid fa-house-laptop fa-xl" style="color: #fc493b;"></i></a>
+                        <a onclick="readDelete(${element.id},'${element.nombreEquipo}')" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa-solid fa-trash"></i></a>
+                        <a onclick="abrirAnydesk(${element.anydesk})" class="btn btn-warning"><i class="fa-solid fa-house-laptop fa-xl" style="color: #fc493b;"></i></a>
                         </td>`;
             table += `</tr>`;
+            console.log(element.anydesk);
         });
         document.getElementById("tableBody").innerHTML = table;
         new DataTable("#tablePc",{
@@ -50,7 +57,7 @@ function read (){
         },
         dom: "Bfrtip",
 
-        buttons: [
+        buttoans: [
             {
                 extend: "colvis",
                 text: '<i class="fa-solid fa-filter"></i>',
@@ -64,7 +71,7 @@ function read (){
                 tittleAttr: "Excel",
                 className: "excel" ,
                 exportOptions:{
-                    columns: [0, 1],
+                    columns: [0, 1, 2, 3, 4, 5],
                 },
             }, 
 
@@ -74,7 +81,7 @@ function read (){
                 tittleAttr: "Imprimir",
                 className: "imprimir" ,
                 exportOptions:{
-                    columns: [0, 1],
+                    columns: [0, 1, 2, 3, 4, 5],
                 },
                 
             }, 
@@ -85,7 +92,7 @@ function read (){
                 tittleAttr: "Copiar",
                 className: "copiar" ,
                 exportOptions:{
-                    columns: [0, 1],
+                    columns: [0, 1, 2, 3, 4, 5],
                 },
                 
             },
@@ -96,7 +103,7 @@ function read (){
                 tittleAttr: "PDF",
                 className: "pdf" ,
                 exportOptions:{
-                    columns: [0, 1],
+                    columns: [0, 1, 2, 3, 4, 5],
                 },
         },
         ],
@@ -107,7 +114,9 @@ function read (){
 
 
 function update(){
-let data = `txtAnydeskMod=${txtAnydeskMod.value}&id=${this.id}`
+let data = `txtNombreMod=${document.getElementById('txtNombreMod').value}&txtAnydeskMod=${document.getElementById('txtAnydeskMod').value}
+&txtIpMod=${document.getElementById('txtIpMod').value}&txtResponsableMod=${document.getElementById('txtResponsableMod').value}
+&txtFechaMantenimientoMod=${document.getElementById('txtFechaMantenimientoMod').value}&id=${this.id}`
 console.log(data);
 const options = {
     method: "POST",
@@ -143,7 +152,11 @@ read();
 
 
 function clear (){
-    txtAnydesk.value = ""
+    txtAnydesk.value = "";
+    txtNombre.value = "";
+    txtIp.value = "";
+    txtResponsable.value = "";
+    txtFechaMantenimiento.value = "";
 }
 
 function readUpdate(id){
@@ -151,15 +164,19 @@ function readUpdate(id){
         .then((response) => response.json())
         .then ((data) => {
             console.log(data);
+            document.getElementById("txtNombreMod").value = data[0].nombreEquipo;
             document.getElementById("txtAnydeskMod").value = data[0].anydesk;
+            document.getElementById("txtIpMod").value = data[0].ip;
+            document.getElementById("txtResponsableMod").value = data[0].responsable;
+            document.getElementById("txtFechaMantenimientoMod").value = data[0].fechaMantenimiento;
 
             this.id = data[0].id;
         });
 }
 
-function readDelete(id, anydesk){
+function readDelete(id, nombreEquipo){
     this.id = id;
-        labelDelete.innerHTML = `Esta seguro de eliminar el equipo ${anydesk}  ?`;
+        labelDelete.innerHTML = `Esta seguro de eliminar el equipo ${nombreEquipo}  ?`;
     }
 
     function abrirAnydesk(codigoAnydesk) {
@@ -167,4 +184,3 @@ function readDelete(id, anydesk){
         window.location.href = sesionAnydesk;
     }
 
-    // "?password=" + encodeURIComponent(password);

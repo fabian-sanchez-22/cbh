@@ -7,7 +7,7 @@
 
 <div class="row">
 
-<div class="col-2 d-flex justify-content-center align-items-center">
+    <div class="col-2 d-flex justify-content-center align-items-center">
         <span class="fw-bolder mb-3">Nombre del equipo</span>
     </div>
 
@@ -34,7 +34,7 @@
 
 <div class="row">
 
-<div class="col-2 d-flex justify-content-center align-items-center">
+    <div class="col-2 d-flex justify-content-center align-items-center">
         <span class="fw-bolder mb-3">Ip del equipo</span>
     </div>
 
@@ -61,7 +61,7 @@
 
 <div class="row">
 
-<div class="col-2 d-flex justify-content-center align-items-center">
+    <div class="col-2 d-flex justify-content-center align-items-center">
         <span class="fw-bolder mb-3">Fecha de mantenimiento</span>
     </div>
 
@@ -77,9 +77,14 @@
 
 
 <div class="row">
-    <div class="col-4 d-flex align-items-center">
-        <a onclick="create()" class="btn btn-primary mb-3"><i class="fa-brands fa-creative-commons-by me-1"></i>Crear</a>
+    <div class="col-5"></div>
+    <div class="col-4">
+        <div class="col-4 d-flex align-items-center">
+            <a onclick="create()" class="btn btn-primary mt-3" id="btnCrear">Agregar equipo</a>
+        </div>
     </div>
+    <div class="col-3"></div>
+
 </div>
 
 <script src="./assets/js/equiposComputo.js"></script>

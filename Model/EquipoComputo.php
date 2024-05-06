@@ -52,9 +52,13 @@ try {
 
 public function update(){
 try {
-    $sql = $this->conexion->getConPDO()->prepare("UPDATE equiposcomputo SET anydesk=? WHERE id =?");
-        $sql->bindParam(1, $this->anydesk);
-        $sql->bindParam(2, $this->id);
+    $sql = $this->conexion->getConPDO()->prepare("UPDATE equiposcomputo SET nombreEquipo=?, anydesk=?, ip=?, responsable=?, fechaMantenimiento=? WHERE id =?");
+        $sql->bindParam(1, $this->nombre);
+        $sql->bindParam(2, $this->anydesk);
+        $sql->bindParam(3, $this->ip);
+        $sql->bindParam(4, $this->responsable);
+        $sql->bindParam(5, $this->fechaMantenimiento);
+        $sql->bindParam(6, $this->id);
         $sql->execute();
 } catch (PDOException $e) {
     return "Error" . $e->getMessage();
